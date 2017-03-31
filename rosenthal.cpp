@@ -25,20 +25,18 @@ rosenthal::rosenthal(double thermal_conductivity, double density,
 double** rosenthal::calculateRosenthal(double dist_x[NARRAY], double dist_y[MARRAY],
                                        double z, double v) {
 
+    // Stores the data for the rosenthal equation to a 2d array.
     double r;
-
     temperature = new double*[NARRAY];
     for( int i=0; i<NARRAY; i++){
         temperature[i] = new double[MARRAY];
 
         for( int j=0; j<MARRAY; j++){
             r = sqrt(pow(dist_x[i], 2.0) + pow(dist_y[j], 2.0) + pow(z, 2.0));
-            // std::cout << r << ' ';
             temperature[i][j] = initial_temperature
                                 + ((voltage*amperage*efficiancy)/(2.0 * PI * thermal_conductivity))
                                 * (1.0/r) * exp(-v/(2.0 * thermal_diffusivity)*(r + dist_x[i]));
         }
-        // std::cout << '\n';
     }
 
     return temperature;

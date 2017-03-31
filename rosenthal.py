@@ -4,6 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def get_data(input_program):
+
+    # create a subprocess to pipe the output of the c++ program into python
     proc = subprocess.Popen(['./' + input_program], stdout=subprocess.PIPE)
 
     temperatures = []
@@ -11,6 +13,8 @@ def get_data(input_program):
     x_data = ''
     first_run = True
 
+    # Convert line by line the output from the C++ file into floats using regular expressions. x, y, and temperature
+    # data is obtained from the output of the c++ program
     while True:
         line = proc.stdout.readline()
         if first_run:
@@ -26,17 +30,20 @@ def get_data(input_program):
     return [x_data, y_data, temperatures]
 
 def plot_data(x, y, temp):
+
+    # convert data to numpy arrays
     temp = np.array(temp)
     y = np.array(y)
 
+    # get the max and min values for the temperatures
     z_min, z_max = 1000.0, np.abs(temp).max()
 
     fig = plt.figure()
     adjustFigAspect(fig, 3.5)  # second input to the function changes the aspect ratio of the plot
     ax = fig.add_subplot(111)
-    data = ax.pcolormesh(x, y, temp, cmap='jet', vmin=z_min, vmax=z_max)
+    data = ax.pcolormesh(x, y, temp, cmap='jet', vmin=z_min, vmax=z_max)  # Creates a contour plot
 
-    # ax.set_title(titleofplot)
+    #  Everything below makes for a prettier plot.
     ax.axis([x.min(), x.max(), y.min(), y.max()])  # sets the limits of the plot to the limits of the data point
     ax.set_aspect("auto")
     cb = fig.colorbar(data)
@@ -71,6 +78,8 @@ def main(input_program):
 
 if __name__ == "__main__":
 
+    # argparse allows for the python program to take the C++ program as input so I don't have to change it in the python
+    # file if I change the C++ file name.
     import argparse
 
     parser = argparse.ArgumentParser()

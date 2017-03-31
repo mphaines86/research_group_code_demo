@@ -5,6 +5,7 @@
 #ifndef TEST_PROJECT_ROSENTHAL_H
 #define TEST_PROJECT_ROSENTHAL_H
 
+// Define size of array (NxM) for rosenthal equation.
 #define NARRAY 5000
 #define MARRAY 200
 

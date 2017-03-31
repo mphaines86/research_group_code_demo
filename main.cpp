@@ -15,6 +15,8 @@ int main() {
     double distance_x[NARRAY];
     double distance_y[MARRAY];
 
+    // Populate arrays for distance values in the x and y direction to use as 
+    // input into the rosenthal equation.
     for (i=0; i<NARRAY; i++){
         distance_x[i] = i * increament_x + x_start;
         // cout << distance_x[i] << '\n';
@@ -25,7 +27,7 @@ int main() {
 
     double** temperatures =  weld.calculateRosenthal(distance_x, distance_y, z,
                                                      velocity);
-
+    // Print out all necessary data to be read into a python file.
     for( int i=0; i<NARRAY; i++){
         std::cout << distance_x[i] << ' ';
     }
