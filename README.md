@@ -1,0 +1,1 @@
+This code was written for a little coding competition between individuals in the research group I am part of. The goal of the project was to create a c++ code that solved the rosenthal equation and then use python to plot the data, make a Makefile, then upload it to github.
